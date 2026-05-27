@@ -2,6 +2,8 @@
 
 Backend de un sistema predictivo de riesgos sísmicos para El Salvador. La solución emplea una arquitectura de microservicios contenerizada mediante Docker, integrando un motor de inferencia en Python y una API Gateway en Node.js para la gestión de datos y persistencia.
 
+Frontend: [sismo-trainer](https://github.com/Enma586/sismo_trainer-.git)
+
 ---
 
 ## Arquitectura del Sistema
