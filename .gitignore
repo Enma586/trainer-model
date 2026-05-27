@@ -1,0 +1,26 @@
+# Node
+api-gateway/node_modules/
+api-gateway/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+ml-service/__pycache__/
+ml-service/venv/
+ml-service/.venv/
+
+# ML artifacts (generated)
+ml-service/models/*.pkl
+ml-service/*.png
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.env

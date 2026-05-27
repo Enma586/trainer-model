@@ -1,0 +1,43 @@
+services:
+  # 1. Base de Datos MongoDB
+  mongodb:
+    image: mongo:latest
+    container_name: sismo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+  # 2. Microservicio de Python (ML)
+  ml-service:
+    build: 
+      context: ./ml-service
+      dockerfile: Dockerfile
+    container_name: sismo_python_ml
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ml-service:/app 
+    restart: unless-stopped
+
+  # 3. API Gateway (Node.js)
+  api-gateway:
+    build: 
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: sismo_node_api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - PYTHON_SERVICE_URL=http://ml-service:8000
+      - MONGO_URI=mongodb://mongodb:27017/sismos_db # Conexión interna de Docker
+    depends_on:
+      - ml-service
+      - mongodb # Node debe esperar a que la BD esté lista
+    restart: unless-stopped
+
+# Volumen persistente para la BD
+volumes:
+  mongo_data:
